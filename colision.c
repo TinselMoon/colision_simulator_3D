@@ -52,41 +52,29 @@ int main(int argc, char **argv){
         //UpdateCamera(&camera, cameraMode);
         BeginDrawing();
         ClearBackground(RAYWHITE);
-
-        BeginMode3D(camera);
-        if(!is_empty(s)){
-            if (IsKeyPressed(KEY_R)){
-                remove_particle(s);
-                num_particles--;
-            }
-            update_pos(s);
-            for(int i = 0; i < 4; i++)fix_contacts(s, caixa);
-            draw_particles(s);
-        }
-        DrawCubeWires((Vector3){caixa.x/2,caixa.y/2,caixa.z/2}, caixa.x, caixa.y, caixa.z, DARKPURPLE);
-        EndMode3D();
-        EndDrawing();
         if (IsKeyPressed(KEY_I)){
             insert_particle(s, caixa);
             num_particles++;
-        }/*
-        BeginDrawing();
+        }
+        BeginMode3D(camera);
         if(!is_empty(s)){
-            ClearBackground(RAYWHITE);
+            update_pos(s);
+            for(int i = 0; i < 4; i++)
+                fix_contacts(s, caixa);
+            draw_particles(s);
             if (IsKeyPressed(KEY_R)){
                 remove_particle(s);
                 num_particles--;
             }
-            update_pos(s, screenWidth, screenHeight);
-            for(int i = 0; i < 4; i++)fix_contacts(s, screenWidth, screenHeight);
-            draw_particles(s);
         }
+        DrawCubeWires((Vector3){caixa.x/2,caixa.y/2,caixa.z/2}, caixa.x, caixa.y, caixa.z, DARKPURPLE);
+        EndMode3D();
         fps = 1/GetFrameTime();
         DrawText(TextFormat("Number of Particles: %d\n"
                             "Press I to insert a particle\n"
                             "Press R to remove a particle\n"
                             "FPS: %.2f", num_particles, fps), 10, 10, 30, DARKGRAY);
-        */
+        EndDrawing();
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
