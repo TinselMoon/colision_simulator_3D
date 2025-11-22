@@ -154,13 +154,23 @@ void fix_contacts(System *s, Box b){
                 double norm_x = dist_x/dist;
                 double norm_y = dist_y/dist;
                 double norm_z = dist_z/dist;
+                double total_mass = p1->mass + p2->mass;
+                double ratio1 = p2->mass / total_mass;
+                double ratio2 = p1->mass / total_mass;
+                /*
                 p1->p_pos.x -= norm_x * (overlap * 0.5);
                 p1->p_pos.y -= norm_y * (overlap * 0.5);
                 p1->p_pos.z -= norm_z * (overlap * 0.5);
                 p2->p_pos.x += norm_x * (overlap * 0.5);
                 p2->p_pos.y += norm_y * (overlap * 0.5);
                 p2->p_pos.z += norm_z * (overlap * 0.5);
-
+                */
+                p1->p_pos.x -= norm_x * (overlap * ratio1);
+                p1->p_pos.y -= norm_y * (overlap * ratio1);
+                p1->p_pos.z -= norm_z * (overlap * ratio1);
+                p2->p_pos.x += norm_x * (overlap * ratio2);
+                p2->p_pos.y += norm_y * (overlap * ratio2);
+                p2->p_pos.z += norm_z * (overlap * ratio2);
                 // Update velocities
                 resolve_collision(p1,p2, norm_x, norm_y, norm_z);
             }
